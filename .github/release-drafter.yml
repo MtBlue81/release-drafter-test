@@ -35,19 +35,23 @@ template: |
 
   $CHANGES
 autolabeler:
-  - label: 'chore'
+  - label: feature
+    branch:
+      - '/^feat(ure)?[/-].+/'
+  - label: bug
+    branch:
+      - '/^fix[/-].+/'
+  - label: chore
+    branch:
+      - '/^chore[/-].+/'
+  - label: refactor
+    branch:
+      - '/(refactor|refactoring)[/-].+/'
+  - label: documentation
+    branch:
+      - '/doc(umentation)[/-].+/'
     files:
       - '*.md'
+  - label: enhancement
     branch:
-      - '/docs{0,1}\/.+/'
-  - label: 'bug'
-    branch:
-      - '/fix\/.+/'
-    title:
-      - '/fix/i'
-  - label: 'enhancement'
-    branch:
-      - '/feature\/.+/'
-  - label: 'major'
-    title:
-      - '/Breaking/'
+      - '/(enhancement|improve)[/-].+/'

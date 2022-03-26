@@ -13,12 +13,7 @@ jobs:
       - name: dump context
         run: echo '${{ toJSON(github) }}'
       - name: get body
-        run: $(echo '${{ toJSON(github) }}' | jq -r ".event.release.body")
-      - name: set body
-        run: echo "BODY=$(echo '${{ toJSON(github) }}' | jq -r \".event.release.body\")" >> $GITHUB_ENV
-      - name: check body
-        run: |
-          echo "${{ env.BODY }}"
+        run: echo ${{ github.event.release.body }}
       - uses: actions/checkout@v2
       - name: get version
         id: get_version
@@ -48,7 +43,7 @@ jobs:
           # This data can be any valid JSON from a previous step in the GitHub Action
           payload: |
             {
-              "note": "'${{ toJSON(github) }}' | jq '.event.payload.release.body'"
+              "note": "${{ github.event.release.body }}
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

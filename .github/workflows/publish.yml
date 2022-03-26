@@ -28,4 +28,8 @@ jobs:
           branch: main
           message: "Bump version: ${{ steps.get_version.outputs.VERSION }}"
           add: "['package.json', 'package-lock.json']"
+      - name: View context attributes
+        uses: actions/github-script@v6
+        with:
+          script: console.log(context)
 

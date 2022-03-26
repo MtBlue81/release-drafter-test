@@ -39,3 +39,7 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: View context attributes
+        uses: actions/github-script@v6
+        with:
+          script: console.log(context)

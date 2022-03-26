@@ -13,7 +13,12 @@ jobs:
       - name: dump context
         run: echo '${{ toJSON(github) }}'
       - name: get body
-        run: echo '${{ toJSON(github) }}' | jq '.event.payload.release.body'
+        run: $(echo '${{ toJSON(github) }}' | jq -r ".event.release.body")
+      - name: set body
+        run: echo "BODY=$(echo '${{ toJSON(github) }}' | jq -r \".event.release.body\")" >> $GITHUB_ENV
+      - name: check body
+        run: |
+          echo "${{ env.BODY }}"
       - uses: actions/checkout@v2
       - name: get version
         id: get_version

@@ -22,6 +22,7 @@ version-resolver:
   major:
     labels:
       - 'major'
+      - 'breaking'
   minor:
     labels:
       - 'feature'
@@ -40,9 +41,13 @@ autolabeler:
   - label: feature
     branch:
       - '/^feat(ure)?[/-].+/'
+    title:
+      - '/^feat:/'
   - label: bug
     branch:
       - '/^fix[/-].+/'
+    title:
+      - '/^fix:/'
   - label: chore
     branch:
       - '/^chore[/-].+/'
@@ -57,3 +62,6 @@ autolabeler:
   - label: enhancement
     branch:
       - '/(enhancement|improve)[/-].+/'
+  - label: breaking
+    title:
+      - 'BREAKING'

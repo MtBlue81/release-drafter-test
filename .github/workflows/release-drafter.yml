@@ -1,3 +1,4 @@
+# ドラフトリリースを更新するためのworkflow
 name: Release Drafter
 
 on:

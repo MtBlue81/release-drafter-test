@@ -1,0 +1,32 @@
+# リリースをnpm publishするworkflow
+name: Publish to npm
+
+on:
+  release:
+    types: 
+      - published 
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: bump version
+        run: |
+          tag=${GITHUB_REF/refs\/tags\//}
+          npm --no-git-tag-version version $tag
+          set -x
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add .
+          git commit --author=. -m "bump $tag"
+          git tag -d $tag
+          git push -d origin $tag
+          git tag $tag
+          git push --tags
+      - name: publish
+        # npm ci & npm run build & npm publish
+        run: |
+          cat package.json
+          cat package-lock.json
+

@@ -28,4 +28,14 @@ jobs:
           branch: main
           message: "Bump version: ${{ steps.get_version.outputs.VERSION }}"
           add: "['package.json', 'package-lock.json']"
-
+      - name: Send GitHub Action trigger data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: |
+            {
+              "note": ${{ github.event.payload.release.body }}
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

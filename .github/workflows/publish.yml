@@ -1,0 +1,31 @@
+# リリースをnpm publishするworkflow
+name: Publish to npm
+
+on:
+  release:
+    types: 
+      - published 
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: get version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: bump version
+        run: |
+          npm --no-git-tag-version version ${{ steps.get_version.outputs.VERSION }}
+      - name: publish
+        # npm ci & npm run build & npm publish
+        run: |
+          cat package.json
+          cat package-lock.json
+      - name: Commit updates
+        uses: EndBug/add-and-commit@v7
+        with:
+          branch: main
+          message: "Bump version: ${{ steps.get_version.outputs.VERSION }}"
+          add: "['package.json', 'package-lock.json']"
+

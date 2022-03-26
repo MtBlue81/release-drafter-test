@@ -13,7 +13,7 @@ jobs:
       - name: dump context
         run: echo '${{ toJSON(github) }}'
       - name: get body
-        run: echo ${{ github.event.release.body }}
+        run: echo '${{ github.event.release.body }}'
       - uses: actions/checkout@v2
       - name: get version
         id: get_version

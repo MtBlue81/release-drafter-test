@@ -38,7 +38,7 @@ template: |
 
   **Full Changelog**: [$PREVIOUS_TAG...v$RESOLVED_VERSION](https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION)
 
-  https://github.com/$OWNER/$REPOSITORY/releases/tag/$RESOLVED_VERSION
+  [Release Note Link](https://github.com/$OWNER/$REPOSITORY/releases/tag/$RESOLVED_VERSION)
 autolabeler:
   - label: feature
     branch:

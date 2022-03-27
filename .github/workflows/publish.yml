@@ -49,10 +49,19 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
         with:
-          # This data can be any valid JSON from a previous step in the GitHub Action
           payload: |
             {
-              "note": ${{ steps.set-body.outputs.result }}
+              "text": "Update!",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ${{ steps.set-body.outputs.result }}
+                  }
+                }
+              ]
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

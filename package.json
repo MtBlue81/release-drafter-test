@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/MtBlue81/release-drafter-test/issues"
   },
-  "homepage": "https://github.com/MtBlue81/release-drafter-test#readme"
+  "homepage": "https://github.com/MtBlue81/release-drafter-test#readme",
+  "dependencies": {
+    "slackify-markdown": "^4.3.1"
+  }
 }

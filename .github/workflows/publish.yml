@@ -12,9 +12,11 @@ jobs:
     steps:
       - name: dump context
         run: echo '${{ toJSON(github) }}'
-      - name: get body
-        run: echo '${{ github.event.release.body }}'
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: npm ci
       - name: get version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
@@ -36,6 +38,11 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: console.log(context)
+      - name: To slack mrkdwn
+        id: set-body
+        uses: actions/github-script@v6
+        with:
+          script: require('slackify-markdown')(${{ toJSON(github.event.release.body) }})
       - name: Send GitHub Action trigger data to Slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
@@ -43,7 +50,7 @@ jobs:
           # This data can be any valid JSON from a previous step in the GitHub Action
           payload: |
             {
-              "note": ${{ toJSON(github.event.release.body) }}
+              "note": ${{ steps.set-body.outputs.result }}
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

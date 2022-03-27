@@ -43,7 +43,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: return require('slackify-markdown')(${{ toJSON(github.event.release.body) }})
-          result-encoding: string
+          result-encoding: json
           debug: true
       - name: Send GitHub Action trigger data to Slack workflow
         id: slack
